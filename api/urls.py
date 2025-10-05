@@ -1,17 +1,19 @@
 from django.urls import path, include
 
-import blogs.views
-import users.views
 from comments.views import CommentViewSet
-from . import views
+from employees.views import EmployeeViewSet
+from users.views import UserViewSet
+from blogs.views import BlogViewSet
+from students.views import StudentViewSet
+
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 
-router.register('employees', views.EmployeeViewSet, 'employees')
-router.register('students', views.StudentViewSet, 'students')
-router.register('users', users.views.UserViewSet, 'users')
-router.register('blogs', blogs.views.BlogViewSet, 'blogs')
+router.register('employees', EmployeeViewSet, 'employees')
+router.register('students', StudentViewSet, 'students')
+router.register('users', UserViewSet, 'users')
+router.register('blogs', BlogViewSet, 'blogs')
 router.register('comments', CommentViewSet, 'comments')
 
 urlpatterns = [

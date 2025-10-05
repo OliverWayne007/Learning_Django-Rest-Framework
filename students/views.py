@@ -1,35 +1,23 @@
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from rest_framework import viewsets
+
+from students.serializers import StudentSerializer
 from .models import Student
 
+
 # Create your views here.
-def getAllStudents(request):
+class StudentViewSet(viewsets.ModelViewSet):
+    serializer_class = StudentSerializer
 
-    students = [
-        {
-            'roll_number': 1,
-            'name': "Ankit Singh",
-            'age': 24,
-            'branch': "DSAI"
-        },
-        {
-            'roll_number': 2,
-            'name': "Harsh Bardhan",
-            'age': 22,
-            'branch': "ECE"
-        },
-        {
-            'roll_number': 3,
-            'name': "Ashley Mao",
-            'age': 23,
-            'branch': 'IT'
-        },
-        {
-            'roll_number': 4,
-            'name': "Arpit Singh",
-            'age': 24,
-            'branch': "CSE"
-        }
-    ]
+    def get_queryset(self):
+        queryset = Student.objects.all()
 
-    return JsonResponse({'students': students})
+        print("request.GET.get('age'): ", self.request.GET.get("age"))
+        print("request.GET.get('branch'): ", self.request.GET.get("branch"))
+
+        age = self.request.query_params.get("age")
+        branch = self.request.query_params.get("branch")
+        if age:
+            queryset = queryset.filter(age=age)
+        if branch:
+            queryset = queryset.filter(branch=branch)
+        return queryset

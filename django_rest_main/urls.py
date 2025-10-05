@@ -20,8 +20,6 @@ from .views import fetch_environment_variables
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # Web Application endpoint which is public for the users to use
-    path('students/', include('students.urls')),
     # API endpoint --> not public, used by internal services
     path('api/v1/', include('api.urls')),
     path('environment_variables/', fetch_environment_variables)
