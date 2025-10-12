@@ -16,11 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import fetch_environment_variables
+from django_rest_main.views import fetch_environment_variables
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # API endpoint --> not public, used by internal services
     path('api/v1/', include('api.urls')),
+    path('students/<str:branch>', include('students.urls')),
     path('environment_variables/', fetch_environment_variables)
 ]
